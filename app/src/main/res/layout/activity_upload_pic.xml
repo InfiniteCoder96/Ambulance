@@ -9,13 +9,15 @@
 
     <Button
         android:id="@+id/choosePic"
-        android:layout_width="wrap_content"
+        android:background="@drawable/optionsbuttonstyle"
+        android:layout_width="200dp"
         android:layout_height="47dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Chosse Picture"
+        android:text="Take Picture"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/upload"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,32 +25,37 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
+        android:id="@+id/videoApi"
+        android:background="@drawable/optionsbuttonstyle"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Record Video"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choosePic" />
+
+    <Button
         android:id="@+id/upload"
-        android:layout_width="wrap_content"
+        android:background="@drawable/optionsbuttonstyle"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Upload"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choosePic" />
+        app:layout_constraintTop_toBottomOf="@+id/videoApi" />
 
-    <Button
-        android:id="@+id/videoApi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Video"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upload" />
+
 
     <ImageView
         android:id="@+id/imageView"

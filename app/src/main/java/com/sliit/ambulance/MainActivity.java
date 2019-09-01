@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
    // String[] requestHospitals = {"Colombo", "Ragama", "Colombo"};
     private DatabaseReference mDatabase;
     private RecyclerView friends;
-
+    String location2 =null;
+    String location1 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void DisplayMyallLocations() {
         FirebaseRecyclerOptions<Location> options = new FirebaseRecyclerOptions.Builder<Location>()
-                .setQuery(mDatabase, Location.class)
+                .setQuery(mDatabase.orderByChild("Date"), Location.class)
                 .build();
 
         FirebaseRecyclerAdapter<Location, userViewHolder> adapter = new FirebaseRecyclerAdapter<Location, userViewHolder>(options) {
@@ -131,8 +133,15 @@ public class MainActivity extends AppCompatActivity {
                         if (dataSnapshot.exists()) {
                           //  final String Username = dataSnapshot.child("Location1").getValue().toString();
                           //  String Status = dataSnapshot.child("Location2").getValue().toString();
-                            final String location1=dataSnapshot.child("Location1").getValue().toString();
-                            final String location2=dataSnapshot.child("Location2").getValue().toString();
+
+                            if (dataSnapshot.child("Location1").exists()){
+                                location1 = dataSnapshot.child("Location1").getValue().toString();
+                            }
+                            else if(dataSnapshot.child("Location2").exists()){
+                                location2 = dataSnapshot.child("Location2").getValue().toString();
+                            }
+
+
                             final Boolean nearHosp = dataSnapshot.child("SOS").hasChild("Nearest Hospital");
 
                             holder.location1.setText(location1);
@@ -195,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
             @NonNull
             @Override
             public userViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.normal_request, parent, false);
 
                 userViewHolder holder = new userViewHolder(view);
