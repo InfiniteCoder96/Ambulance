@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                             if (dataSnapshot.child("Location1").exists()){
                                 location1 = dataSnapshot.child("Location1").getValue().toString();
                             }
-                            else if(dataSnapshot.child("Location2").exists()){
+                            if(dataSnapshot.child("Location2").exists()){
                                 location2 = dataSnapshot.child("Location2").getValue().toString();
                             }
 
