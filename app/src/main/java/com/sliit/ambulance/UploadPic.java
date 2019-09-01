@@ -61,6 +61,8 @@ public class UploadPic extends AppCompatActivity {
 
         Button uploadBtn = findViewById(R.id.upload);
         Button choosePic = findViewById(R.id.choosePic);
+        Button videoBtn = findViewById(R.id.videoApi);
+
         UID = getIntent().getExtras().get("UId").toString();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -80,6 +82,12 @@ public class UploadPic extends AppCompatActivity {
             }
         });
 
+        videoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recordVideo();
+            }
+        });
     }
 
     private void chooseImage() {
@@ -104,6 +112,30 @@ public class UploadPic extends AppCompatActivity {
         }
 
     }
+
+    private void recordVideo() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null)
+        {
+            File photoFile = null;
+            try {
+                photoFile = createVideoFile();
+            } catch (IOException ex) {
+
+            }
+            if (photoFile != null) {
+                filePath = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, filePath);
+                startActivityForResult(takePictureIntent, PICK_IMAGE_REQUEST);
+            }
+
+
+        }
+
+    }
+
     String mCurrentPhotoPath;
 
     private File createImageFile() throws IOException {
@@ -119,6 +151,21 @@ public class UploadPic extends AppCompatActivity {
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
+
+    private File createVideoFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String videoFileName = "mp4_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File video = File.createTempFile(
+                videoFileName,
+                ".mp4",
+                storageDir
+        );
+        mCurrentPhotoPath = video.getAbsolutePath();
+        return video;
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
