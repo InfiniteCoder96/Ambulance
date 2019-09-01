@@ -52,7 +52,7 @@ public class UploadPic extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 1;
     private Uri filePath;
     private ProgressDialog progressDialog;
-
+    private String optionSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +91,9 @@ public class UploadPic extends AppCompatActivity {
     }
 
     private void chooseImage() {
+
+        optionSelected = "image";
+
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null)
         {
@@ -114,6 +117,8 @@ public class UploadPic extends AppCompatActivity {
     }
 
     private void recordVideo() {
+        optionSelected = "video";
+
         Intent takePictureIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null)
         {
@@ -185,8 +190,15 @@ public class UploadPic extends AppCompatActivity {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
+            StorageReference ref;
 
-            StorageReference ref = storageReference.child("images/"+ UID);
+            if(optionSelected.equals("image")){
+                ref = storageReference.child("images/"+ UID);
+            }
+            else{
+                ref = storageReference.child("videos/"+ UID);
+            }
+
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override

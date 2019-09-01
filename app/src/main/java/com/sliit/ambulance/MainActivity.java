@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             @NonNull
             @Override
             public userViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_list, parent, false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.normal_request, parent, false);
 
                 userViewHolder holder = new userViewHolder(view);
 
